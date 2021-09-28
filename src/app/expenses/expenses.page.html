@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Store Expenses</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshData()">
+        Refresh
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <div style="width: 100%;">
+      <ion-datetime (ionChange)="filterByDate()" [(ngModel)]="DateFrom" displayFormat="MMM YYYY" placeholder="Select filter date"></ion-datetime>
+    </div>
+  </ion-item>
+  <div>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Created</th>
+      </tr>
+      <tr *ngFor="let expense of Expenses" (click)="showActionController(expense.id, expense.type)">
+        <td>{{ expense.type }}</td>
+        <td>₱ {{ formatPrice(expense.amount) }}</td>
+        <td>{{ expense.datetime }}</td>
+      </tr>
+      <tr *ngIf="Expenses?.length == 0 && status == true" class="ion-text-center">
+        <td colspan="3">No data found on selected date...</td>
+      </tr>
+    </table>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addlistexpense()">
+      NEW EXPENSE
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

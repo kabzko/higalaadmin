@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Stocks Inventory Management</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshData()">
+        Refresh
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="CheckData != 0">
+    <ion-item lines="none">
+      <ion-searchbar [(ngModel)]="Search" (ionChange)="searchInventory()" placeholder="Search here..."></ion-searchbar>
+      <ion-select ok-text="Select" cancel-text="Cancel" value="any" (ionChange)="filterSelect($event)" style="height: 40px; width: 110px;">
+        <ion-select-option value="any">Any</ion-select-option>
+        <ion-select-option value="barcode">Barcode</ion-select-option>
+        <ion-select-option value="name">Name</ion-select-option>
+        <ion-select-option value="category">Category</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div>
+      <table>
+        <tr>
+          <th>Batch</th>
+          <th>Barcode</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Net Weight</th>
+          <th>Cost</th>
+          <th>Stocks</th>
+          <th>Discount</th>
+          <th>Updated</th>
+        </tr>
+        <tr *ngFor="let inventory of Inventory" style="cursor: pointer;" (click)="productActionSheet(inventory.id, inventory.productId, inventory.stockId, inventory.name, inventory.barcode, inventory.netweight, inventory.quantity, inventory.discount, inventory.threshold, inventory.category)">
+          <td>{{ inventory.batchNum }}</td>
+          <td>{{ inventory.barcode }}</td>
+          <td>{{ inventory.name }}</td>
+          <td>{{ firstCapLet(inventory.category) }}</td>
+          <td>{{ inventory.netweight }}</td>
+          <td>₱ {{ formatPrice(inventory.cost) }}</td>
+          <td>
+            <span *ngIf="inventory.quantity >= 1 && inventory.threshold <= inventory.quantity">{{ inventory.quantity }}</span>
+            <span *ngIf="inventory.quantity >= 1 && inventory.threshold > inventory.quantity" style="color: var(--ion-color-danger);">{{ inventory.product_quantity }}</span>
+          </td>
+          <td class="ion-text-center">
+            <span *ngIf="inventory.product_discount != 0" style="color: var(--ion-color-danger);">{{ inventory.discount * 100 }}%</span>
+            <span *ngIf="inventory.product_discount == 0">{{ inventory.discount * 100 }}%</span>
+          </td>
+          <td>{{ inventory.datetime }}</td>
+        </tr>
+        <tr *ngIf="Inventory?.length == 0">
+          <td colspan="9">The product you're looking for is not found...</td>     
+        </tr>
+      </table>
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" *ngIf="InfiniteScroll == true">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addstockdelivery()">
+      NEW STOCK
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

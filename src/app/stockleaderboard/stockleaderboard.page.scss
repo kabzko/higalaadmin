@@ -1,0 +1,26 @@
+th {
+    background-color: var(--ion-color-primary);
+    color: white;
+    text-align: left;
+    font-weight: 500;
+    padding: 15px;
+    border: 1px solid white;
+    font-size: 14px;
+}
+td {
+    padding: 15px;
+    background-color: rgb(220, 220, 220);
+    border: 1px solid white;
+    div {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+th {
+    width: 100%;
+}
+table {
+    width: 100%;
+    table-layout: fixed;
+}

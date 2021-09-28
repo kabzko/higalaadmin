@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Sales Invoice Receipt</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshData()">
+        Refresh
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngIf="Process == false">
+    <ion-searchbar [(ngModel)]="Search" (ionChange)="searchPurchase()" placeholder="Search Sales Invoice Number..."></ion-searchbar>
+  </ion-item>
+  <ion-item *ngIf="Process == false">
+    <div style="width: 50%;">
+      <ion-datetime (ionChange)="filterByDate()" [(ngModel)]="DateFrom" displayFormat="MMM DD YYYY" placeholder="Select Date From"></ion-datetime>
+    </div>
+    <div style="width: 50%;">
+      <ion-datetime (ionChange)="filterByDate()" [(ngModel)]="DateTo" displayFormat="MMM DD YYYY" placeholder="Select Date To"></ion-datetime>
+    </div>
+  </ion-item>
+  <div *ngIf="Process == false">
+    <div *ngIf="Searching == 'false'">
+      <div *ngFor="let receiptdate of GroupReceipt; let i = index">
+        <ion-item detail="false" button (click)="expandItem(receiptdate.id)">
+          <div style="margin-left: 10px; font-size: 20px;">
+            <b *ngIf="i == 0 && receiptdate.date == DateToday">Today</b>
+            <b *ngIf="i == 0 && receiptdate.date != DateToday">{{ receiptdate.date }}</b>
+            <b *ngIf="i != 0">{{ receiptdate.date }}</b>
+          </div>
+        </ion-item>
+        <div [hidden]="receiptdate.expanded">
+          <ion-item class="receipt-list" detail="false" button *ngFor="let receipt of filterReceiptByDate(receiptdate.date)" (click)="viewReceipt(receipt.orderId)">
+            <div style="width: 50%;">
+              <span style="font-size: 18px; color: var(--ion-color-danger);"><b>₱ {{ formatPrice(receipt.total) }}</b></span><br>
+              <span style="color: gray; font-size: 14px;">{{ receipt.time }}</span>
+            </div>
+            <div class="ion-text-right ion-text-uppercase" style="width: 50%;">
+              <span style="font-size: 18px; color: var(--ion-color-danger);"><b>{{ receipt.type.toUpperCase() }}</b></span><br>
+              <span style="font-size: 14px;">SI No. </span><span style="font-size: 14px;"><b>{{ receipt.orderId }}</b></span>
+            </div>
+          </ion-item>
+          <ion-item lines="none" color="primary" *ngIf="filterMoreButton(receiptdate.date) == true" detail="false" button (click)="moreFilterReceiptByDate(receiptdate.date)">
+            <ion-label class="ion-text-center">
+              <b>SHOW MORE</b>
+            </ion-label>
+          </ion-item>
+        </div>
+      </div>
+      <ion-item *ngIf="Receipt?.length == 0 && Process == false" lines="none" class="ion-text-center">
+        <ion-label>The receipt number you're looking for is not found...</ion-label>
+      </ion-item> 
+    </div>
+    <div *ngIf="Searching == 'true'">
+      <ion-item class="search-receipt" detail="false" button *ngFor="let receipt of Receipt" (click)="viewReceipt(receipt.orderId)">
+        <div style="width: 50%;">
+          <span style="font-size: 18px; color: var(--ion-color-danger);"><b>₱ {{ formatPrice(receipt.total) }}</b></span><br>
+          <span style="color: gray; font-size: 14px;">{{ receipt.date + " " + receipt.time }}</span>
+        </div>
+        <div class="ion-text-right ion-text-uppercase" style="width: 50%;">
+          <br>
+          <span style="font-size: 14px;">SI No. </span><span style="font-size: 14px;"><b>{{ receipt.orderId }}</b></span>
+        </div>
+      </ion-item>
+      <ion-item lines="none" class="ion-text-center" *ngIf="Receipt?.length == 0">
+        <ion-label>The receipt number you're looking for is not found...</ion-label>    
+      </ion-item>
+    </div>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="printSalesIntoCSV()">
+      Print Sales Report
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

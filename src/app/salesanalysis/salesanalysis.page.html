@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Sales Analysis</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [hidden]="Graph">
+    <div class="container">
+      <ion-grid class="control-grid">
+        <ion-row>
+          <ion-col class="ion-text-left months-button">
+            <button (click)="changeMonth(1)" [disabled]="!yearly">Jan</button>
+            <button (click)="changeMonth(2)" [disabled]="!yearly">Feb</button>
+            <button (click)="changeMonth(3)" [disabled]="!yearly">Mar</button>
+            <button (click)="changeMonth(4)" [disabled]="!yearly">Apr</button>
+            <button (click)="changeMonth(5)" [disabled]="!yearly">May</button>
+            <button (click)="changeMonth(6)" [disabled]="!yearly">Jun</button>
+            <button (click)="changeMonth(7)" [disabled]="!yearly">Jul</button>
+            <button (click)="changeMonth(8)" [disabled]="!yearly">Aug</button>
+            <button (click)="changeMonth(9)" [disabled]="!yearly">Sept</button>
+            <button (click)="changeMonth(10)" [disabled]="!yearly">Oct</button>
+            <button (click)="changeMonth(11)" [disabled]="!yearly">Nov</button>
+            <button (click)="changeMonth(12)" [disabled]="!yearly">Dec</button>
+          </ion-col>
+          <ion-col class="ion-text-right type-button">
+            <button (click)="dailytab(1)">Daily</button>
+            <button (click)="monthlytab(2)">Monthly</button>
+            <button (click)="yearlytab(3)">Yearly</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row [hidden]="daily">
+          <ion-col id="dailyrevenuecol" size="6">
+            <canvas id="dailyrevenue"></canvas>
+          </ion-col>
+          <ion-col id="dailyexpensecol" size="6">
+            <canvas id="dailyexpense"></canvas>
+          </ion-col>
+        </ion-row>
+        <ion-row [hidden]="monthly">
+          <ion-col id="monthlyrevenuecol" size="6">
+            <canvas id="monthlyrevenue"></canvas>
+          </ion-col>
+          <ion-col id="monthlygrossincomecol" size="6">
+            <canvas id="monthlygrossincome"></canvas>
+          </ion-col>
+        </ion-row>
+        <ion-row [hidden]="monthly">
+          <ion-col id="monthlyexpensecol" size="6">
+            <canvas id="monthlyexpense"></canvas>
+          </ion-col>
+          <ion-col id="monthlynetincomecol" size="6">
+            <canvas id="monthlynetincome"></canvas>
+          </ion-col>
+        </ion-row>
+        <ion-row [hidden]="yearly">
+          <ion-col id="yearlyrevenuecol" size="6">
+            <canvas id="yearlyrevenue"></canvas>
+          </ion-col>
+          <ion-col id="yearlygrossincomecol" size="6">
+            <canvas id="yearlygrossincome"></canvas>
+          </ion-col>
+        </ion-row>
+        <ion-row [hidden]="yearly">
+          <ion-col id="yearlyexpensecol" size="6">
+            <canvas id="yearlyexpense"></canvas>
+          </ion-col>
+          <ion-col id="yearlynetincomecol" size="6">
+            <canvas id="yearlynetincome"></canvas>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

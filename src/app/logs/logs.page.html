@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Logs</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshData()">
+        Refresh
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-item>
+    <div style="width: 100%;">
+      <ion-datetime (ionChange)="filterByDate()" [(ngModel)]="DateFrom" displayFormat="MMM DD YYYY" placeholder="Select filter date"></ion-datetime>
+    </div>
+  </ion-item> -->
+  <div *ngIf="Logs?.length != 0">
+    <ion-item *ngFor="let log of Logs">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+           {{ log.description }}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" *ngIf="InfiniteScroll == true">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Checking more data..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="clearLogs()">
+      CLEAR LOGS
+    </ion-fab-button>
+  </ion-fab> -->
+</ion-content>

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Stocks Leaderboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <div style="width: 100%;">
+      <ion-datetime (ionChange)="filterByDate()" [(ngModel)]="DateFrom" displayFormat="MMM YYYY" placeholder="Select filter date"></ion-datetime>
+    </div>
+  </ion-item>
+  <div>
+    <table>
+      <tr>
+        <th colspan="2" class="ion-text-center">
+          <span style="font-size: 36px; padding: 10px 0;">Monthly Products Leaderboard</span>
+        </th>
+      </tr>
+      <tr>
+        <th>Product Name</th>
+        <th>Product Sold</th>
+      </tr>
+      <tr *ngFor="let list of LeaderboardList">
+        <td>{{ list.name }}</td>
+        <td>{{ list.sold }}</td>
+      </tr>
+      <tr *ngIf="LeaderboardList?.length == 0 && status == true" class="ion-text-center">
+        <td colspan="2">No data found on selected date...</td>
+      </tr>
+    </table>
+  </div>
+</ion-content>

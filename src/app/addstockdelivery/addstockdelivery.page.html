@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center"></ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="addProduct()">
+        New Item
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <div class="field-container">
+      <label for="supplier">Supplier Name</label>
+      <ion-input id="supplier" type="text"  (ionBlur)="checkBlur()" (ionFocus)="checkFocus()" (ionChange)="selectSimilarSupplier()" [(ngModel)]="Supplier"></ion-input>
+      <div style="background-color: white; z-index: 999999; margin-top: 1px; border-bottom: 1px solid lightgrey; border-left: 1px solid lightgrey; border-right: 1px solid lightgrey; position: absolute; height: 200px; width: calc(100% - 20px); overflow-y: auto;" [hidden]="HiddenSupplier">
+        <ion-item style="--padding-start: 10px !important; --inner-padding-end: 10px !important;" button lines="none" detail="false" *ngFor="let sup of SupplierList" (click)="selectSuppleName(sup.supplierName)">
+          {{ firstCapLet(sup.supplierName) }}
+        </ion-item>
+      </div>
+    </div>
+    <div class="field-container">
+      <label for="receipt">Sales Invoice or Official Receipt No.</label>
+      <ion-input id="receipt" type="text" [(ngModel)]="SIORNO"></ion-input>
+    </div>
+    <div class="field-container" style="padding: 0 !important" *ngFor="let cart of CartList; let i = index">
+      <ion-item (click)="actionProductList(i, cart.product_name + ' ' + cart.product_net_weight)" button detail="false">
+        <ion-label>Barcode: {{ cart.product_barcode }}</ion-label>
+        <ion-label>Name: {{ cart.product_name }}</ion-label>
+        <ion-label>Quantity: {{ cart.product_quantity }}</ion-label>
+        <ion-label>Category: {{ cart.product_category }}</ion-label>
+        <ion-label>Net Weight: {{ cart.product_net_weight }}</ion-label>
+        <ion-label>Cost: ₱ {{ formatPrice(cart.product_cost) }}</ion-label>
+        <ion-label>Price: ₱ {{ formatPrice(cart.product_price) }}</ion-label>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div style="margin: 20px 10px 10px 10px">
+    <ion-button expand="block" (click)="saveDeliveryLogs()" [disabled]="CartList?.length == 0">Save new stock</ion-button>
+  </div>
+</ion-footer>

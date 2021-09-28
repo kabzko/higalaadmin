@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center"></ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="addExpense()">
+        New Expense
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="ExpenseList?.length != 0">
+    <div class="field-container" *ngFor="let expense of ExpenseList; let i = index">
+      <ion-item (click)="actionExpenseList(i, expense.type)" button detail="false">
+        <div style="padding-left: 10px !important; width: 100%;">
+          <ion-grid>
+            <ion-row>
+              <ion-col>Expense Type: {{ expense.type }}</ion-col>
+              <ion-col>Amount: ₱ {{ formatPrice(expense.amount) }}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div *ngIf="ExpenseList?.length != 0" style="margin: 20px 10px 10px 10px">
+    <ion-button expand="block" (click)="saveListExpenses()">Save list of expenses</ion-button>
+  </div>
+</ion-footer>

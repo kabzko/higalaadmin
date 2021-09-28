@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Cashier Profiles</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="loadStoresAdmin()">
+        Refresh
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content> 
+  <div>
+    <ion-item detail="false" button *ngFor="let admin of Admins" (click)="storeAdminActionSheet(admin.id, admin.name)">
+      <div class="ion-text-center" style="width: 4.5%;">
+        <fa-icon [icon]="['fas', 'user-tie']"></fa-icon>     
+      </div>
+      <div>
+        <span style="font-size: 18px;">{{ firstCapLet(admin.name) }}</span><br>
+      </div>
+    </ion-item>
+  </div>
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button (click)="addUser()">
+      New User
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

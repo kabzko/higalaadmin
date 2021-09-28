@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">New Expense</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <div class="field-container">
+      <label for="type">Expense Type</label>
+      <ion-input id="type" type="text" [(ngModel)]="Type"></ion-input>
+    </div>
+    <div class="field-container">
+      <label for="amount">Amount</label>
+      <ion-input id="amount" type="number" step="any" [(ngModel)]="Amount"></ion-input>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div style="margin: 10px 10px">
+    <ion-button expand="block" color="primary" (click)="addToList()">Add to list</ion-button>
+  </div>
+</ion-footer>

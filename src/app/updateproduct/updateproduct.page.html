@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <div class="field-container">
+      <label for="email">Barcode</label>
+      <ion-input id="email" type="text" [(ngModel)]="ProductBarcode"></ion-input>
+    </div>
+    <div class="field-container">
+      <label for="email">Name</label>
+      <ion-input id="email" type="text" [(ngModel)]="ProductName"></ion-input>
+    </div>
+    <div class="field-container">
+      <label for="email">Net Weight</label>
+      <ion-input id="email" type="text" [(ngModel)]="ProductNetweight"></ion-input>
+    </div>
+    <div class="field-container">
+      <label for="email">Category</label>
+      <ion-input id="email" type="text" (ionBlur)="checkBlur()" (ionFocus)="checkFocus()" (ionChange)="selectSimilar()" [(ngModel)]="ProductCategory"></ion-input>
+      <div style="background-color: white; z-index: 999999; margin-top: 1px; border-bottom: 1px solid lightgrey; border-left: 1px solid lightgrey; border-right: 1px solid lightgrey; position: absolute; height: 200px; width: calc(100% - 20px); overflow-y: auto;" [hidden]="HiddenCategory">
+        <ion-item style="--padding-start: 10px !important; --inner-padding-end: 10px !important;" button lines="none" detail="false" *ngFor="let cat of CategoryList" (click)="selectCategoryType(cat.category)">
+          {{ firstCapLet(cat.category) }}
+        </ion-item>
+      </div>
+    </div>
+    <div class="field-container">
+      <label for="email">Threshold</label>
+      <ion-input id="email" type="text" [(ngModel)]="ProductLowStockAlert"></ion-input>
+    </div>
+    <div style="margin: 10px 10px">
+      <ion-button expand="block" (click)="updateProduct()">Update Product Details</ion-button>
+    </div>
+  </div>
+</ion-content>

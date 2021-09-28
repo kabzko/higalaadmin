@@ -1,0 +1,213 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Logout
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Super Admin Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="CompleteLoad == true">
+    <div class="ion-text-center ion-padding-horizontal ion-padding-top">
+      <span style="font-size: 36px; font-weight: 600; color: var(--ion-color-primary);">SALES</span>
+      <hr style="background: black; margin: 5px 0 0 0 !important;">
+    </div>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="4">
+        <ion-card button (click)="gotoSalesAnalysis()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'chart-line']"></fa-icon>
+              </div>        
+              <ion-label>Sales Analysis</ion-label>
+            </ion-card-title>
+          </ion-card-header>        
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button (click)="gotoSalesInvoice()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'receipt']"></fa-icon>
+              </div>           
+              <ion-label>Sales Invoice Receipt</ion-label>
+            </ion-card-title>
+          </ion-card-header>        
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button (click)="loadTotalSalesToday()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'money-bill']"></fa-icon>
+              </div>           
+              <ion-label>Sales Today</ion-label>
+            </ion-card-title>
+          </ion-card-header>        
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button (click)="gotoStoreCredit()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'store']"></fa-icon>
+              </div>           
+              <ion-label>Store Credit</ion-label>
+            </ion-card-title>
+          </ion-card-header>        
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button (click)="gotoStoreExpense()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'dollar-sign']"></fa-icon>
+              </div>           
+              <ion-label>Store Expenses</ion-label>
+            </ion-card-title>
+          </ion-card-header>        
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <div class="ion-text-center ion-padding-horizontal ion-padding-top">
+      <span style="font-size: 36px; font-weight: 600; color: var(--ion-color-primary);">STOCKS</span>
+      <hr style="background: black; margin: 5px 0 0 0 !important;">
+    </div>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="4">
+        <ion-card button (click)="gotoStockLeaderboard()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'trophy']"></fa-icon>
+              </div>
+              <ion-label>Stocks Leaderboard</ion-label>
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button (click)="gotoStockDelivery()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'truck-loading']"></fa-icon>
+              </div>
+              <ion-label>Stocks Deliveries</ion-label>
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button (click)="gotoStockInventory()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'warehouse']"></fa-icon>
+              </div>        
+              <ion-label>Stocks Inventory Management</ion-label>
+            </ion-card-title>
+          </ion-card-header>        
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button (click)="gotoStockBadOrder()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'skull-crossbones']"></fa-icon>
+              </div>             
+              <ion-label>Stocks Bad Orders</ion-label>
+            </ion-card-title>
+          </ion-card-header>        
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <div class="ion-text-center ion-padding-horizontal ion-padding-top">
+      <span style="font-size: 36px; font-weight: 600; color: var(--ion-color-primary);">ACTIONS</span>
+      <hr style="background: black; margin: 5px 0 0 0 !important;">
+    </div>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="4">
+        <ion-card button (click)="gotoLogs()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'clipboard-list']"></fa-icon>
+              </div>
+              <ion-label>Actions Logs</ion-label>
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button (click)="gotoStoreAdmin()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'user-tie']"></fa-icon>
+              </div>
+              <ion-label>Cashier Profile</ion-label>
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button (click)="updateVat()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'percent']"></fa-icon>
+              </div> 
+              <ion-label><span>Store VAT</span>&nbsp;-&nbsp;{{ StoreVat }}%</ion-label>
+            </ion-card-title>
+          </ion-card-header>        
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button (click)="openCashDrawer()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'cash-register']"></fa-icon>
+              </div>
+              <ion-label>Open Cashier Drawer</ion-label>
+            </ion-card-title>
+          </ion-card-header>        
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card button (click)="gotoAdminPassword()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'key']"></fa-icon>
+              </div>
+              <ion-label>Change Super Admin Password</ion-label>
+            </ion-card-title>
+          </ion-card-header>        
+        </ion-card>
+      </ion-col>
+      <!-- <ion-col size="4">
+        <ion-card button (click)="selectPrinters()" color="primary">
+          <ion-card-header>
+            <ion-card-title>
+              <div class="btn-icon">
+                <fa-icon [icon]="['fas', 'print']"></fa-icon>
+              </div>
+              <ion-label>Printers</ion-label>
+            </ion-card-title>
+          </ion-card-header>        
+        </ion-card>
+      </ion-col> -->
+    </ion-row>
+  </div>
+</ion-content>

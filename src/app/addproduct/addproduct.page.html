@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">New Product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <div class="field-container">
+      <label for="quantity">Barcode</label>
+      <ion-input id="quantity" type="text" [(ngModel)]="Barcode"></ion-input>
+    </div>
+    <div class="field-container">
+      <label for="quantity">Name</label>
+      <ion-input id="quantity" type="text" [(ngModel)]="Name"></ion-input>
+    </div>
+    <div class="field-container">
+      <label for="quantity">Quantity</label>
+      <ion-input id="quantity" type="number" [(ngModel)]="Quantity"></ion-input>
+    </div>
+    <div class="field-container">
+      <label for="cost">Net Weight</label>
+      <ion-input id="cost" type="text" step="any" [(ngModel)]="NetWeight"></ion-input>
+    </div>
+    <div class="field-container">
+      <label for="email">Category</label>
+  <ion-input id="email" type="text" (ionBlur)="checkBlurCategory()" (ionFocus)="checkFocusCategory()" (ionChange)="selectSimilar()" [(ngModel)]="Category"></ion-input>
+  <div style="background-color: white; z-index: 999999; border: 1px solid lightgrey; position: relative; height: 200px; overflow-y: auto;" [hidden]="HiddenCategory">
+    <ion-item style="--padding-start: 10px !important; --inner-padding-end: 30px !important;" button lines="none" detail="false" *ngFor="let cat of CategoryList" (click)="selectCategoryType(cat.category)">
+      {{ firstCapLet(cat.category) }}
+    </ion-item>
+  </div>
+    </div>
+    <div class="field-container">
+      <label for="cost">Cost</label>
+      <ion-input id="cost" type="number" step="any" [(ngModel)]="Unit_cost"></ion-input>
+    </div>
+    <div class="field-container">
+      <label for="cost">Price</label>
+      <ion-input id="cost" type="number" step="any" [(ngModel)]="Price"></ion-input>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div style="margin: 10px 10px">
+    <ion-button expand="block" color="primary" (click)="addToList()">Add to list</ion-button>
+  </div>
+</ion-footer>

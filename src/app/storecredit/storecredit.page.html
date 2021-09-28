@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Store Credit</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="loadStoreCredit()">
+        Refresh
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment color="primary" (ionChange)="selectStatus($event)" scrollable [value]="SegmentStatus" style="border-radius: 0 !important;">
+    <ion-segment-button id="segment1" value="Unpaid">
+      <ion-label style="font-size: 2.2vh;">Unpaid</ion-label>
+    </ion-segment-button>
+    <ion-segment-button id="segment2" value="Paid">
+      <ion-label style="font-size: 2.2vh;">Paid</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div *ngIf="SegmentStatus == 'Unpaid'">
+    <ion-item>
+      <ion-searchbar [(ngModel)]="SearchUnpaid" (ionChange)="searchUnpaidCredit()" placeholder="Search Customer Name..."></ion-searchbar>
+    </ion-item>
+    <ion-item class="receipt-list" detail="false" button *ngFor="let unpaid of Unpaid" (click)="storecreditActionSheet(unpaid.orderId, unpaid.customerName)">
+      <div style="width: 50%;">
+        <span style="font-size: 18px; color: var(--ion-color-danger);"><b>₱ {{ formatPrice(unpaid.total) }}</b></span><br>
+        <span style="color: gray; font-size: 14px;">{{ unpaid.date + " " + unpaid.time }}</span>
+      </div>
+      <div class="ion-text-right ion-text-uppercase" style="width: 50%;">
+        <span style="font-size: 18px; color: var(--ion-color-danger);"><b>{{ unpaid.customerName }}</b></span><br>
+        <span style="font-size: 14px;">SI No. </span><span style="font-size: 14px;"><b>{{ unpaid.orderId }}</b></span>
+      </div>
+    </ion-item>
+  </div>
+  <div *ngIf="SegmentStatus == 'Paid'">
+    <ion-item>
+      <ion-searchbar [(ngModel)]="SearchPaid" (ionChange)="searchPaidCredit()" placeholder="Search Customer Name..."></ion-searchbar>
+    </ion-item>
+    <ion-item class="receipt-list" detail="false" button *ngFor="let paid of Paid" (click)="viewReceipt(paid.order_id)">
+      <div style="width: 50%;">
+        <span style="font-size: 18px; color: var(--ion-color-danger);"><b>₱ {{ formatPrice(paid.total) }}</b></span><br>
+        <span style="color: gray; font-size: 14px;">{{ paid.date + " " + paid.time }}</span>
+      </div>
+      <div class="ion-text-right ion-text-uppercase" style="width: 50%;">
+        <span style="font-size: 18px; color: var(--ion-color-danger);"><b>{{ paid.customerName }}</b></span><br>
+        <span style="font-size: 14px;">SI No. </span><span style="font-size: 14px;"><b>{{ paid.orderId }}</b></span>
+      </div>
+    </ion-item>
+  </div>
+</ion-content>

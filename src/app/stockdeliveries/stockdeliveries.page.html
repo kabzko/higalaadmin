@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Stocks Deliveries</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshData()">
+        Refresh
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="CheckData != 0">
+    <ion-item lines="none">
+      <ion-searchbar [(ngModel)]="Search" (ionChange)="searchDeliveries()" placeholder="Search SI/OR No..."></ion-searchbar>
+    </ion-item>
+    <div>
+      <table>
+        <tr>
+          <th>SI/OR NO.</th>
+          <th>Supplier</th>
+          <th>Barcode</th>
+          <th>Net Weight</th>
+          <th>Quantity Added</th>
+          <th>Unit Cost</th>
+          <th>Created Date</th>
+        </tr>
+        <tr *ngFor="let log of StockLogs" (click)="productActionSheet(log.id, log.productId, log.siorNo)">
+          <td>{{ log.siorNo }}</td>
+          <td>{{ log.supplierName }}</td>
+          <td>{{ log.barcode }}</td>
+          <td>{{ log.netWeight }}</td>
+          <td>{{ log.newAdded }}</td>
+          <td>₱ {{ formatPrice(log.cost) }}</td>
+          <td>{{ log.datetime }}</td>
+        </tr>
+        <tr *ngIf="StockLogs?.length == 0">
+          <td colspan="9">The recorded receipt you're looking for is not found...</td>     
+        </tr>
+      </table>
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" *ngIf="InfiniteScroll == true">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+  </div>
+</ion-content>

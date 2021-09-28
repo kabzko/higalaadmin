@@ -1,0 +1,25 @@
+fa-icon {
+    font-size: 24px;
+    color: #fafafa;
+}
+.btn-icon {
+    display: inline-block;
+    width: 40px;
+    margin-right: 10px;
+    text-align: center;
+}
+.chevron-icon {
+    position: absolute;
+    right: 0;
+}
+ion-label {
+    font-size: 20px;
+}
+ion-card {
+    ion-card-header {
+        padding-bottom: 20px;
+        ion-card-title {
+            font-weight: 500 !important;
+        }
+    }
+}

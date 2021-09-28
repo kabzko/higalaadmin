@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="popOut()">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Stock Bad Orders</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshData()">
+        Refresh
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <table>
+      <tr>
+        <th>Batch</th>
+        <th>Barcode</th>
+        <th>Name</th>
+        <th>Deduct</th>
+        <th>Stocks left</th>
+        <th>Created</th>
+      </tr>
+      <tr *ngFor="let bad of BadStock" (click)="actionBO(bad.id, bad.batchId, bad.deducted, bad.batchNum)">
+        <td>{{ bad.batchNum }}</td>
+        <td>{{ bad.barcode }}</td>
+        <td>{{ bad.name }}</td>
+        <td>{{ bad.deducted }}</td>
+        <td>{{ bad.quantity }}</td>
+        <td>{{ bad.datetime }}</td>
+      </tr>
+    </table>
+  </div>
+</ion-content>
